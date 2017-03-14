@@ -1,0 +1,25 @@
+[
+  {
+    "activity": "yoga",
+    "audio_features": [
+      "acousticness",
+      "instrumentalness",
+      "tempo"
+    ]
+  }, {
+    "activity": "running",
+    "audio_features": [
+      "energy",
+      "loudness",
+      "tempo"
+    ]
+  },
+  {
+    "activity": "weightlifting",
+    "audio_features": [
+      "energy",
+      "speechiness",
+      "liveness"
+    ]
+  }
+]
