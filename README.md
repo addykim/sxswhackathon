@@ -1,16 +1,11 @@
 #SXSW Hackathon
 
-To install frontend
+To install
 ```
 npm install
 ```
 
-To run frontend in development
+To develop frontend or backend
 ```
 npm start
-```
-
-To run the backend
-```
-./run.py
 ```
