@@ -1,0 +1,6 @@
+*.pyc
+
+
+/flask
+/node_modules
+/dist
