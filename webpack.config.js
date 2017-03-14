@@ -1,4 +1,5 @@
-const webpack = require('webpack'); //to access built-in plugins
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const config = {
@@ -18,6 +19,10 @@ const config = {
     ]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'public/index.html'
+    })
   ]
 };
 
