@@ -12,8 +12,6 @@ const request = require('request'); // "Request" library
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
 const Spotify = require('spotify-web-api-node');
-const router = new express.Router();
-
 
 const STATE_KEY = 'spotify_auth_state';
 const scopes = ['user-read-private', 'user-read-email'];
@@ -78,7 +76,7 @@ app.get('/callback', (req, res) => {
     console.log("Setting accesstoken")
     spotifyApi.setAccessToken(access_token);
     spotifyApi.setRefreshToken(refresh_token);
-    res.redirect(`/#/user/${access_token}/${refresh_token}`);
+    res.redirect(`/#/user`);
   }).catch(err => {
     res.redirect('/#/error/invalid token');
   });
