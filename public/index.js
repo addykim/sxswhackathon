@@ -23,25 +23,9 @@ class Index extends Component {
           <option value="weight-lifting">Weight lifting</option>
           <option value="running">Running</option>
         </select>
+        {this.props.children}
       </div>
     );
-  }
-}
-
-class Nav extends Component {
-  render() {
-    // injected via react router
-    const {children} = this.props;
-    return (
-      <div className="spotify-login">
-        <Login/>
-        <h1>Example Spotify + React + React-Router Login Flow</h1>
-        <div className="page-content">
-          <p>This is an example of the Authorization Code flow using routes.</p>
-          {children}
-        </div>
-      </div>
-      );
   }
 }
 
@@ -64,14 +48,16 @@ const store = createStore(
 class App extends Component {
   render() {
     return (
-      <Router history={history}>
-        <div>
-          <Nav/>
-          <Route exact path="/" component={Index}/>
-          <Route path="/#/user/:accessToken/:refreshToken" component={User}/>
-          <Route path="/error/:errorMsg" component={Error}/>
-        </div>
-      </Router>
+      <Provider store={store}>
+        <Router history={history}>
+          <div>
+            <Login/>
+            <Route exact path="/" component={Index}/>
+            <Route path="/#/user" component={User}/>
+            <Route path="/error/:errorMsg" component={Error}/>
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }
