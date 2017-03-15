@@ -73,13 +73,25 @@ app.get('/callback', (req, res) => {
   const { code } = req.query;
   spotifyApi.authorizationCodeGrant(code).then(data => {
     const { expires_in, access_token, refresh_token } = data.body;
-    console.log("Setting accesstoken")
+    console.log("Setting access token")
+    res.cookie('spotify_access_token', access_token)
+    res.cookie('spotify_refresh_token', refresh_token)
     spotifyApi.setAccessToken(access_token);
     spotifyApi.setRefreshToken(refresh_token);
-    res.redirect(`/#/user`);
+    res.redirect(`/`);
   }).catch(err => {
     res.redirect('/#/error/invalid token');
   });
+});
+
+app.get('/me', function(req, res) {
+  console.log('hit me')
+  spotifyApi.getMe().then(function(data) {
+    console.log('Some information about this user', data.body)
+    res.json(data.body)
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  })
 });
 
 app.get('/refresh_token', function(req, res) {

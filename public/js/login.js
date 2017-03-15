@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
+import User from './login';
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props)
+    console.log('constructor')
+    this.state = {
+      isLoggedIn: this.props.loggedIn,
+      user: null
+    }
+  }
+  componentDidMount() {
+    console.log('component did mount')
+    fetch('/me', {method: 'GET'})
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({user: data})
+      }).catch((error) => {
+        console.error(error)
+      })
+  }
   render() {
-    return (
-      <div className="login">
-        <h2>Here's our login page!</h2>
-        <a href="/login">Login</a>
-      </div>
-    );
+    console.log('render')
+    if (!this.state.isLoggedIn) {
+      return (<div className="login"><a href="/login">Login</a></div>);
+    } 
+    if (this.state.user !== null) {
+      return (<div className="login">Logged in as {this.state.user.display_name}</div>) 
+    }
+    return <span>Loading...</span>
   }
 }
