@@ -94,6 +94,26 @@ app.get('/me', function(req, res) {
   })
 });
 
+
+app.get('/playlist', function(req, res) {
+  // Look at https://github.com/JMPerez/spotify-web-api-node for examples of other methods you can use
+  spotifyApi.getPlaylist('spotify', '4hOKQuZbraPDIfaGbM3lKI')
+  .then(function(data) {
+    console.log('Some information about this playlist', data.body);
+    // This sends back a json response of the spotify api
+    res.json(data.body);
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+
+  spotifyApi.getMe().then(function(data) {
+    console.log('Some information about this user', data.body)
+    res.json(data.body)
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  })
+});
+
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token

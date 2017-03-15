@@ -7,6 +7,7 @@ import reduce from './js/reducers'
 
 import Login from './js/login';
 import Error from './js/error';
+import Playlist from './js/playlist';
 
 const SPOTIFY_ACCESS_TOKEN = 'spotify_access_token'
 
@@ -36,6 +37,7 @@ class Index extends Component {
           <option value="weight-lifting">Weight lifting</option>
           <option value="running">Running</option>
         </select>
+        <Playlist/>
       </div>
     );
   }
