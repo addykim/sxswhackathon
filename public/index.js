@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {Provider} from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
-import {Router,Route,Switch} from 'react-router';
-import {ConnectedRouter, routerReducer, routerMiddleware, push} from 'react-router-redux'
+import cookie from 'react-cookie';
 
+// import history from './js/history';
 import reduce from './js/reducers'
+
 import Login from './js/login';
-import User from './js/user';
 import Error from './js/error';
 
+const SPOTIFY_ACCESS_TOKEN = 'spotify_access_token'
+
 class Index extends Component {
+  componentWillMount() {
+    this.state = {
+      accessToken: cookie.load(SPOTIFY_ACCESS_TOKEN)
+    }
+  }
+  onLogin(accessToken) {
+    this.setState({})
+    cookie.save(SPOTIFY_ACCESS_TOKEN)
+  }
+  // unused at the moment
+  onLogout(){
+    cookie.remove(SPOTIFY_ACCESS_TOKEN)
+  }
   render() {
     return (
       <div>
+        <Login loggedIn={!!this.state.accessToken}/>
         <h1>What activity are you doing today?</h1>
         <select
             defaultValue="">
@@ -23,43 +36,9 @@ class Index extends Component {
           <option value="weight-lifting">Weight lifting</option>
           <option value="running">Running</option>
         </select>
-        {this.props.children}
       </div>
     );
   }
 }
 
-// Create a history of your choosing (we're using a browser history in this case)
-const history = createHistory()
-
-// Build the middleware for intercepting and dispatching navigation actions
-const middleware = routerMiddleware(history)
-
-// Add the reducer to your store on the `router` key
-// Also apply our middleware for navigating
-const store = createStore(
-  combineReducers({
-    reducers: reduce,
-    router: routerReducer
-  }),
-  applyMiddleware(middleware)
-)
-
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={history}>
-          <div>
-            <Login/>
-            <Route exact path="/" component={Index}/>
-            <Route path="/#/user" component={User}/>
-            <Route path="/error/:errorMsg" component={Error}/>
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
-}
-
-ReactDOM.render(<App/>, document.getElementById('content'));
+ReactDOM.render(<Index/>, document.getElementById('content'));
