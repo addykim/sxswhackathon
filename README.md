@@ -15,3 +15,6 @@ To develop frontend or backend
 ```
 npm start
 ```
+
+
+Login and authorization functionality referenced from [this tutorial](https://github.com/kauffecup/spotify-react-router-auth)
