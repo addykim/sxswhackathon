@@ -4,14 +4,12 @@ import User from './login';
 export default class Login extends Component {
   constructor(props) {
     super(props)
-    console.log('constructor')
     this.state = {
       isLoggedIn: this.props.loggedIn,
       user: null
     }
   }
   componentDidMount() {
-    console.log('component did mount')
     fetch('/me', {method: 'GET'})
       .then((response) => response.json())
       .then((data) => {
@@ -21,7 +19,6 @@ export default class Login extends Component {
       })
   }
   render() {
-    console.log('render')
     if (!this.state.isLoggedIn) {
       return (<div className="login"><a href="/login">Login</a></div>);
     } 
